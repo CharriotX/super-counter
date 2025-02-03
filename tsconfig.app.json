@@ -25,7 +25,8 @@
     "noUncheckedSideEffectImports": true
   },
   "scripts": {
-    "preview": "vite preview --port 8080"
+    "preview": "vite preview --port 8080",
+    "deploy": "gh-pages -d dist"
   },
   "include": [
     "src"
