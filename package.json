@@ -1,6 +1,7 @@
 {
   "name": "vite-project",
   "private": true,
+  "homepage": "https://charriotx.github.io/super-counter/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
