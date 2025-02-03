@@ -1,0 +1,7 @@
+.input {
+    font-size: 18px;
+}
+
+.input.error {
+    background-color: rgb(203, 89, 89);
+}

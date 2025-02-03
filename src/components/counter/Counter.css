@@ -1,0 +1,31 @@
+.counter {
+    color: white;
+    width: 300px;
+    height: 220px;
+    border: 2px solid white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.counterDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 80%;
+    font-size: 40px;
+    border: 2px solid white;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.max {
+    color: red
+}
+
+.counterButtons {
+    display: flex;
+    justify-content: space-around;
+}
