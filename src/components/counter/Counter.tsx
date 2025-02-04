@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
 import { Button } from "../button/Button"
 import "./Counter.css"
 import { Settings } from "../setting/Settings"
 import { CounterDisplay } from "./CounterDisplay"
+import { useEffect, useState } from "react"
 
 export const Counter = () => {
     const [counter, setCounter] = useState<number>(0)

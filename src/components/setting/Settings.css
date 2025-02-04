@@ -20,7 +20,9 @@
 }
 
 .setDisplay .errorDisplay {
-    height: 16px;
+    margin-top: 5px;
+    height: 12px;
+    font-size: 12px;
 }
 
 .setDisplay span {

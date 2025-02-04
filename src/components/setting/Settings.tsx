@@ -19,9 +19,7 @@ export const Settings = ({ setStart, setMax, closeSettings, setCounter, start, m
     const [error, setError] = useState<string>("")
 
     useEffect(() => {
-        localStorage.setItem("startNumber", JSON.stringify(newStartNumber))
-        localStorage.setItem("maxNumber", JSON.stringify(newMaxNumber))
-        handleError()
+        handleSetLocalStorage()
     }, [newMaxNumber, newStartNumber])
 
     const onChangeInputStart = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,13 +31,15 @@ export const Settings = ({ setStart, setMax, closeSettings, setCounter, start, m
     }
 
     const setHandler = () => {
-        setCounter(newStartNumber)
-        setStart(newStartNumber)
-        setMax(newMaxNumber)
-        closeSettings()
+        if (error.length === 0) {
+            setCounter(newStartNumber)
+            setStart(newStartNumber)
+            setMax(newMaxNumber)
+            closeSettings()
+        }
     }
 
-    const handleError = () => {
+    const handleSetLocalStorage = () => {
         if (newMaxNumber <= newStartNumber) {
             setError("Incorrect input value")
         } else if (newMaxNumber < 0 || newStartNumber < 0) {
@@ -47,6 +47,8 @@ export const Settings = ({ setStart, setMax, closeSettings, setCounter, start, m
         }
         else {
             setError("")
+            localStorage.setItem("startNumber", JSON.stringify(newStartNumber))
+            localStorage.setItem("maxNumber", JSON.stringify(newMaxNumber))
         }
     }
 
