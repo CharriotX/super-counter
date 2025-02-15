@@ -1,8 +1,9 @@
-import { Button } from "../button/Button"
-import "./Counter.css"
 import { Settings } from "../setting/Settings"
-import { CounterDisplay } from "./CounterDisplay"
 import { useEffect, useState } from "react"
+import { Box } from "@mui/material"
+import { CounterDisplay } from "../counterDisplay/CounterDisplay"
+import { StyledCounterBlock } from "./Counter.styles"
+import { CounterButton } from "../button/CounterButton"
 
 export const Counter = () => {
     const [counter, setCounter] = useState<number>(0)
@@ -33,7 +34,7 @@ export const Counter = () => {
         if (counter === max) {
             return
         }
-        setCounter(counter + 1)
+        setCounter(prev => prev + 1)
     }
 
     const reset = () => {
@@ -50,19 +51,18 @@ export const Counter = () => {
     }
 
     return (
-        <div className="counter">
+        <StyledCounterBlock>
             {isSettingsOpen
                 ? <Settings setCounter={setCounter} start={start} max={max} setMax={setMax} setStart={setStart} closeSettings={closeSetting}></Settings>
-                : <CounterDisplay counter={counter} max={max}></CounterDisplay>
+                : <Box>
+                    <CounterDisplay counter={counter} max={max}></CounterDisplay>
+                    <Box>
+                        <CounterButton variant='contained' onClick={add} disabled={counter === max ? true : false} >add</CounterButton>
+                        <CounterButton variant='contained' onClick={reset} disabled={counter == start ? true : false} sx={{ margin: '0 10px' }}>reset</CounterButton>
+                        <CounterButton variant='contained' onClick={openSettings}>set</CounterButton>
+                    </Box>
+                </Box>
             }
-            {isSettingsOpen
-                ? ""
-                : <div className="counterButtons">
-                    <Button onClick={add} disabled={counter === max ? true : false}>add</Button>
-                    <Button onClick={reset} disabled={counter == start ? true : false}>reset</Button>
-                    <Button onClick={openSettings}>set</Button>
-                </div>
-            }
-        </div >
+        </StyledCounterBlock >
     )
 }
