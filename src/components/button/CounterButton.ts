@@ -1,5 +1,4 @@
-import { Button, styled } from "@mui/material";
-
+import { Button, styled, SxProps, Theme } from "@mui/material";
 
 
 export const CounterButton = styled(Button)(({ theme }) => ({
@@ -11,3 +10,10 @@ export const CounterButton = styled(Button)(({ theme }) => ({
     },
 
 }))
+
+export const getCounterModeButtonSx = (active: boolean, theme: Theme): SxProps => ({
+    width: "120px",
+    boxShadow: active ? `0px 0px 10px 3px ${theme.palette.text.primary}` : "none",
+    margin: 1,
+
+})

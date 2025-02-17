@@ -11,7 +11,6 @@ export const Counter = () => {
     const [max, setMax] = useState<number>(5)
     const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false)
 
-
     useEffect(() => {
         getValuesFromLocalStorage()
     }, [start])
@@ -53,7 +52,9 @@ export const Counter = () => {
     return (
         <StyledCounterBlock>
             {isSettingsOpen
-                ? <Settings setCounter={setCounter} start={start} max={max} setMax={setMax} setStart={setStart} closeSettings={closeSetting}></Settings>
+                ? <Box>
+                    <Settings setCounter={setCounter} start={start} max={max} setMax={setMax} setStart={setStart} closeSettings={closeSetting}></Settings>
+                </Box>
                 : <Box>
                     <CounterDisplay counter={counter} max={max}></CounterDisplay>
                     <Box>

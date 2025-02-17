@@ -7,9 +7,11 @@ type Props = {
     placeholder?: string
     error: boolean
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    onFocus?: () => void
+    onBlur?: () => void
 }
 
-export const Input = ({ type, value, placeholder, error, onChange }: Props) => {
+export const Input = ({ type, value, placeholder, error, onChange, onFocus, onBlur }: Props) => {
     return (
         <input
             type={type}
@@ -17,6 +19,7 @@ export const Input = ({ type, value, placeholder, error, onChange }: Props) => {
             placeholder={placeholder}
             onChange={onChange}
             className={error ? "input error" : "input"}
+            onFocus={onFocus}
         ></input>
     )
 }
