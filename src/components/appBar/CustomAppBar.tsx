@@ -1,12 +1,17 @@
 import { Box, Switch, Toolbar, Typography } from "@mui/material"
 import { StyledAppBar } from "./CustomAppBar.styles"
+import { ThemeModeType } from "../../App"
 
 type Props = {
     isDarkMode: boolean
-    toggleTheme: () => void
+    toggleTheme: (mode: ThemeModeType) => void
 }
 
 export const CustomAppBar = ({ isDarkMode, toggleTheme }: Props) => {
+    const onChangeThemeMode = () => {
+        toggleTheme(isDarkMode ? "light" : "dark")
+    }
+
     return (
         <StyledAppBar>
             <Toolbar>
@@ -19,11 +24,10 @@ export const CustomAppBar = ({ isDarkMode, toggleTheme }: Props) => {
                     </Typography>
                     <Switch
                         checked={isDarkMode}
-                        onChange={toggleTheme}
+                        onChange={onChangeThemeMode}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
                 </Box>
-
             </Toolbar>
         </StyledAppBar>
     )

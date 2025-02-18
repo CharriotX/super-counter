@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material"
 import { getColorCounter } from "./CounterDisplay.styles"
-import { useError } from "../context/errorContext/useError"
+import { useError } from "../context/errorContext/UseError"
 
 type Props = {
     counter: number

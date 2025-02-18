@@ -2,7 +2,7 @@ import { Grid2, ThemeProvider } from '@mui/material'
 import { Counter } from './components/counter/Counter'
 import { CustomAppBar } from './components/appBar/CustomAppBar'
 import { darkTheme, lightTheme } from './components/theme/Theme'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CustomContainer } from './components/container/CustomContainer'
 import { CounterWithSettings } from './components/counterWithSettings/CounterWithSettings'
 import ErrorProvider from './components/context/errorContext/ErrorProvider'
@@ -11,24 +11,40 @@ import { changeThemeContainerSx } from './components/changeThemeBlock/ChangeThem
 import { counterBlockSx } from './components/counter/Counter.styles'
 
 export type CounterModeType = "primary" | "secondary"
+export type ThemeModeType = "dark" | "light"
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
+  const [themeMode, setThemeMode] = useState<ThemeModeType>(() => {
+    return localStorage.getItem("themeMode") as ThemeModeType || "dark"
+  })
   const [counterMode, setCounterMode] = useState<CounterModeType>('primary')
 
-  const toggleTheme = () => {
-    setIsDarkMode(prev => !prev)
+  useEffect(() => {
+    getThemeFromLocalStorage()
+  }, [])
+
+  const getThemeFromLocalStorage = () => {
+    let themeModeStr = localStorage.getItem("themeMode")
+    if (themeModeStr) {
+      if (themeModeStr === "dark" || themeModeStr === "light") {
+        setThemeMode(themeModeStr)
+      }
+    }
   }
 
-  const toggleCounterMode = (mode: CounterModeType) => {
-    setCounterMode(mode)
+  const toggleTheme = (mode: ThemeModeType) => {
+    setThemeMode(mode)
+    localStorage.setItem("themeMode", mode)
   }
 
+  const toggleCounterMode = () => {
+    setCounterMode(prev => (prev === "primary" ? "secondary" : "primary"))
+  }
 
   return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
       <ErrorProvider>
-        <CustomAppBar isDarkMode={isDarkMode} toggleTheme={toggleTheme}></CustomAppBar>
+        <CustomAppBar isDarkMode={themeMode === "dark"} toggleTheme={toggleTheme}></CustomAppBar>
         <CustomContainer>
           <Grid2 sx={changeThemeContainerSx}>
             <ChangeThemeBox toggleCounterMode={toggleCounterMode} counterMode={counterMode}></ChangeThemeBox>

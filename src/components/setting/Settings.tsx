@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import { CounterButton } from '../button/CounterButton'
 import { settingsBoxSx, settingsButtonBoxSx } from './Settings.style'
 import { SettingsInput } from '../input/Input.styles'
-import { useError } from '../context/errorContext/useError'
+import { useError } from '../context/errorContext/UseError'
 
 type Props = {
     start: number
@@ -18,28 +18,19 @@ type Props = {
 
 export const Settings = ({ setStart, setMax, closeSettings, setCounter, handleSetCounterMode, isCounterActive, start, max }: Props) => {
 
-    const [newStartNumber, setNewStartNumber] = useState<number>(start);
-    const [newMaxNumber, setNewMaxNumber] = useState<number>(max)
+    const [newStartNumber, setNewStartNumber] = useState<number>(() => {
+        let startNumber = localStorage.getItem("startNumber")
+        return startNumber ? JSON.parse(startNumber) : start
+    });
+    const [newMaxNumber, setNewMaxNumber] = useState<number>(() => {
+        let maxNumber = localStorage.getItem("maxNumber")
+        return maxNumber ? JSON.parse(maxNumber) : max
+    })
     const { error, setError } = useError();
 
     useEffect(() => {
         handleSetLocalStorage()
-        getValuesFromLocalStorage()
-    }, [newMaxNumber, newStartNumber, error])
-
-    const getValuesFromLocalStorage = () => {
-        let startNumber = localStorage.getItem("startNumber")
-        let maxNumber = localStorage.getItem("maxNumber")
-
-        if (startNumber && maxNumber) {
-            let newStartNumber = JSON.parse(startNumber);
-            let newMaxNumber = JSON.parse(maxNumber);
-
-            setStart(newStartNumber)
-            setMax(newMaxNumber)
-        }
-        setCounter(start)
-    }
+    }, [newMaxNumber, newStartNumber])
 
     const onChangeInputStart = (e: ChangeEvent<HTMLInputElement>) => {
         setNewStartNumber(Number(e.target.value))
@@ -73,7 +64,6 @@ export const Settings = ({ setStart, setMax, closeSettings, setCounter, handleSe
     }
 
     const handleSetLocalStorage = () => {
-
         if (newMaxNumber <= newStartNumber) {
             handleError("Incorrect input value")
         } else if (newStartNumber < 0) {

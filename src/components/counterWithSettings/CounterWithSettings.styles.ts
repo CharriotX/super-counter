@@ -1,10 +1,11 @@
 import { SxProps, Theme } from "@mui/material";
 
 export const counterSettingsSx: SxProps = {
+    width: "50%",
     display: "flex",
-    gap: "150px"
+    justifyContent: "space-around",
+    gap: "10px"
 }
-
 
 export const settingsWithCounterSx = (theme: Theme) => ({
     border: `2px solid ${theme.palette.text.primary}`,

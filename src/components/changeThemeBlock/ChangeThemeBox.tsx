@@ -5,7 +5,7 @@ import { changeThemeBoxSx } from './ChangeThemeBox.styled'
 
 type Props = {
     counterMode: CounterModeType
-    toggleCounterMode: (mode: CounterModeType) => void
+    toggleCounterMode: () => void
 }
 
 export const ChangeThemeBox = ({ counterMode, toggleCounterMode }: Props) => {
@@ -16,12 +16,12 @@ export const ChangeThemeBox = ({ counterMode, toggleCounterMode }: Props) => {
             <Box display={"flex"} justifyContent={"space-around"}>
                 <CounterButton
                     sx={getCounterModeButtonSx(counterMode === 'primary' ? true : false, theme)}
-                    onClick={() => toggleCounterMode("primary")}
+                    onClick={toggleCounterMode}
                 >Primary
                 </CounterButton>
                 <CounterButton
                     sx={getCounterModeButtonSx(counterMode === 'secondary' ? true : false, theme)}
-                    onClick={() => toggleCounterMode("secondary")}
+                    onClick={toggleCounterMode}
                 >Secondary
                 </CounterButton>
             </Box>
