@@ -1,10 +1,8 @@
-import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
-import { CounterButton } from "../button/CounterButton"
+import { Button } from "../button/Button"
 import { CounterDisplay } from "../counterDisplay/CounterDisplay"
 import { Settings } from "../setting/Settings"
-import { counterSettingsSx, settingsWithCounterSx } from "./CounterWithSettings.styles"
-
+import s from "./CounterWithSettings.module.css"
 export const CounterWithSettings = () => {
     const [counter, setCounter] = useState<number>(0)
     const [start, setStart] = useState<number>(0)
@@ -46,10 +44,9 @@ export const CounterWithSettings = () => {
     }
 
     return (
-        <Box sx={counterSettingsSx}>
-            <Box sx={settingsWithCounterSx}>
+        <div className={s.counterBox}>
+            <div className={s.counterItems}>
                 <Settings
-                    setCounter={setCounter}
                     start={start}
                     max={max}
                     setMax={setMax}
@@ -57,14 +54,14 @@ export const CounterWithSettings = () => {
                     handleSetCounterMode={handleSetCounterMode}
                     isCounterActive={isCounterActive}
                 ></Settings>
-            </Box>
-            <Box sx={settingsWithCounterSx}>
+            </div>
+            <div className={s.counterItems}>
                 <CounterDisplay counter={counter} max={max}></CounterDisplay>
-                <Box display={"flex"} justifyContent={"space-around"}>
-                    <CounterButton variant='contained' onClick={add} disabled={counter === max ? true : !isCounterActive ? true : false} >add</CounterButton>
-                    <CounterButton variant='contained' onClick={reset} disabled={counter == start ? true : !isCounterActive ? true : false} >reset</CounterButton>
-                </Box>
-            </Box>
-        </Box>
+                <div className={s.counterButtons}>
+                    <Button onClick={add} disabled={counter === max ? true : !isCounterActive ? true : false} >add</Button>
+                    <Button onClick={reset} disabled={counter == start ? true : !isCounterActive ? true : false} >reset</Button>
+                </div>
+            </div>
+        </div>
     )
 }

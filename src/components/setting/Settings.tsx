@@ -1,14 +1,15 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { Box } from '@mui/material'
-import { CounterButton } from '../button/CounterButton'
-import { settingsBoxSx, settingsButtonBoxSx } from './Settings.style'
-import { SettingsInput } from '../input/Input.styles'
+import { Button } from '../button/Button'
+import { Input } from '../input/Input'
 import { useError } from '../context/errorContext/UseError'
+import { useAppDispatch } from '../../common/hooks/useAppDispatch'
+import { setCounterAC } from '../../model/counter-reducer'
+import s from "./Settings.module.css"
+
 
 type Props = {
     start: number
     max: number
-    setCounter: (start: number) => void
     setMax: (max: number) => void
     closeSettings?: () => void
     handleSetCounterMode?: (set: boolean) => void
@@ -16,8 +17,8 @@ type Props = {
     setStart: (start: number) => void
 }
 
-export const Settings = ({ setStart, setMax, closeSettings, setCounter, handleSetCounterMode, isCounterActive, start, max }: Props) => {
-
+export const Settings = ({ setStart, setMax, closeSettings, handleSetCounterMode, isCounterActive, start, max }: Props) => {
+    const dispatch = useAppDispatch()
     const [newStartNumber, setNewStartNumber] = useState<number>(() => {
         let startNumber = localStorage.getItem("startNumber")
         return startNumber ? JSON.parse(startNumber) : start
@@ -48,9 +49,9 @@ export const Settings = ({ setStart, setMax, closeSettings, setCounter, handleSe
 
     const setHandler = () => {
         if (!error) {
-            setCounter(newStartNumber)
             setStart(newStartNumber)
             setMax(newMaxNumber)
+            dispatch(setCounterAC({ newNum: newStartNumber }))
             if (closeSettings !== undefined) {
                 closeSettings()
             } if (handleSetCounterMode !== undefined) {
@@ -77,34 +78,24 @@ export const Settings = ({ setStart, setMax, closeSettings, setCounter, handleSe
     }
 
     return (
-        <Box>
-            <Box sx={settingsBoxSx}>
-                <SettingsInput type="number"
+        <div>
+            <div className={s.inputsBlock}>
+                <Input
+                    type="number"
                     value={newMaxNumber}
-                    variant="outlined"
                     onChange={onChangeInputMax}
-                    error={error !== null}
-                    size={"small"}
-                    label={"max number"}
-                    color={error !== null ? "error" : "primary"}
-                    focused={false}
-                ></SettingsInput>
-                <SettingsInput
+                    error={error}
+                ></Input>
+                <Input
                     type="number"
                     value={newStartNumber}
-                    variant="outlined"
                     onChange={onChangeInputStart}
-                    error={error !== null}
-                    size={"small"}
-                    label={"start number"}
-                    margin="normal"
-                    color={error !== null ? "error" : "primary"}
-                    focused={false}
-                ></SettingsInput>
-            </Box>
-            <Box sx={settingsButtonBoxSx}>
-                <CounterButton onClick={setHandler} disabled={error !== null || isCounterActive}>set</CounterButton>
-            </Box>
-        </Box >
+                    error={error}
+                ></Input>
+            </div>
+            <div className={s.buttonBlock}>
+                <Button onClick={setHandler} disabled={error !== null || isCounterActive}>set</Button>
+            </div>
+        </div >
     )
 }

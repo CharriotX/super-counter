@@ -1,0 +1,20 @@
+.counterBox {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 200px;
+}
+
+.counterItems {
+    width: 250px;
+    height: 160px;
+    border: 2px solid var(--text-color);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.counterButtons {
+    display: flex;
+    justify-content: space-around;
+}

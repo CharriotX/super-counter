@@ -1,6 +1,5 @@
-import { Box, Typography, useTheme } from "@mui/material"
-import { getColorCounter } from "./CounterDisplay.styles"
 import { useError } from "../context/errorContext/UseError"
+import s from "./CounterDisplay.module.css"
 
 type Props = {
     counter: number
@@ -8,12 +7,13 @@ type Props = {
 }
 
 export const CounterDisplay = ({ counter, max }: Props) => {
-    const theme = useTheme();
     const { error } = useError()
 
     return (
-        <Box sx={getColorCounter({ max, counter, theme })}>
-            {error ? <Typography fontSize={"14px"} color={"error"}>{error}</Typography> : counter}
-        </Box >
+        <div className={s.display}>
+            {error
+                ? <span className={s.errorMessage}>{error}</span>
+                : <span className={counter === max ? s.maxCount : ""}>{counter}</span>}
+        </div >
     )
 }

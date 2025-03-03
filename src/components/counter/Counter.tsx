@@ -1,12 +1,16 @@
 import { Settings } from "../setting/Settings"
 import { useEffect, useState } from "react"
-import { Box } from "@mui/material"
 import { CounterDisplay } from "../counterDisplay/CounterDisplay"
-import { StyledCounterBlock } from "./Counter.styles"
-import { CounterButton } from "../button/CounterButton"
+import { Button } from "../button/Button"
+import { selectCounter } from "../../model/counter-selector"
+import { useAppSelector } from "../../common/hooks/useAppSelector"
+import { useAppDispatch } from "../../common/hooks/useAppDispatch"
+import { incrementAC, resetAC, setCounterAC } from "../../model/counter-reducer"
+import s from "./Counter.module.css"
 
 export const Counter = () => {
-    const [counter, setCounter] = useState<number>(0)
+    const counter = useAppSelector(selectCounter)
+    const dispatch = useAppDispatch()
     const [start, setStart] = useState<number>(0)
     const [max, setMax] = useState<number>(5)
     const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false)
@@ -26,19 +30,19 @@ export const Counter = () => {
             setStart(newStartNumber)
             setMax(newMaxNumber)
         }
-        setCounter(start)
+        dispatch(setCounterAC({ newNum: start }))
     }
 
     const add = () => {
         if (counter === max) {
             return
         }
-        setCounter(prev => prev + 1)
+        dispatch(incrementAC())
     }
 
     const reset = () => {
-        getValuesFromLocalStorage()
-        setCounter(start)
+        // getValuesFromLocalStorage()
+        dispatch(resetAC({ startNum: start }))
     }
 
     const openSettings = () => {
@@ -50,20 +54,20 @@ export const Counter = () => {
     }
 
     return (
-        <StyledCounterBlock>
+        <div className={s.counter}>
             {isSettingsOpen
-                ? <Box>
-                    <Settings setCounter={setCounter} start={start} max={max} setMax={setMax} setStart={setStart} closeSettings={closeSetting}></Settings>
-                </Box>
-                : <Box>
+                ? <div>
+                    <Settings start={start} max={max} setMax={setMax} setStart={setStart} closeSettings={closeSetting}></Settings>
+                </div>
+                : <div>
                     <CounterDisplay counter={counter} max={max}></CounterDisplay>
-                    <Box>
-                        <CounterButton variant='contained' onClick={add} disabled={counter === max ? true : false} >add</CounterButton>
-                        <CounterButton variant='contained' onClick={reset} disabled={counter == start ? true : false} sx={{ margin: '0 10px' }}>reset</CounterButton>
-                        <CounterButton variant='contained' onClick={openSettings}>set</CounterButton>
-                    </Box>
-                </Box>
+                    <div className={s.buttonBlock}>
+                        <Button onClick={add} disabled={counter === max ? true : false} >add</Button>
+                        <Button onClick={reset} disabled={counter == start ? true : false}>reset</Button>
+                        <Button onClick={openSettings}>set</Button>
+                    </div>
+                </div>
             }
-        </StyledCounterBlock >
+        </div >
     )
 }

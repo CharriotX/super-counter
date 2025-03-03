@@ -1,0 +1,16 @@
+.inputsBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inputsBlock input {
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.buttonBlock {
+    margin-top: 38px;
+    display: flex;
+    justify-content: center;
+}

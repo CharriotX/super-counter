@@ -1,0 +1,18 @@
+.counter {
+    width: 250px;
+    height: 160px;
+    border: 2px solid var(--text-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 200px;
+}
+
+.buttonBlock {
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttonBlock button {
+    width: 70px;
+    text-align: center;
+}

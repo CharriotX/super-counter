@@ -1,0 +1,19 @@
+.display {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    border: 2px solid var(--text-color);
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.errorMessage {
+    font-size: 14px;
+    color: red;
+}
+
+.maxCount {
+    color: red
+}

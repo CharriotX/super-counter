@@ -1,0 +1,9 @@
+.container {
+    background-color: var(--container-background);
+    height: 100vh;
+    margin: 0 auto;
+    width: 90%;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+}

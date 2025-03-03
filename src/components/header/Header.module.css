@@ -1,0 +1,50 @@
+.header {
+    background-color: var(--header-background);
+    padding: 1rem 2rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.leftLinks {
+    display: flex;
+    gap: 1rem;
+}
+
+.rightLink {
+    margin-left: auto;
+}
+
+.link {
+    color: var(--link-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: var(--link-hover-color);
+}
+
+.active {
+    color: var(--link-hover-color);
+    border-bottom: 2px solid var(--link-hover-color);
+}
+
+.themeToggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.themeToggle:hover {
+    color: var(--link-hover-color);
+}

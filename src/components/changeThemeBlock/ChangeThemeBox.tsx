@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from '@mui/material'
-import { CounterButton, getCounterModeButtonSx } from '../button/CounterButton'
-import { CounterModeType } from '../../App'
+import { CounterButton, getCounterModeButtonSx } from '../button/Button'
 import { changeThemeBoxSx } from './ChangeThemeBox.styled'
+import { CounterModeType } from '../../app/App'
 
 type Props = {
     counterMode: CounterModeType
