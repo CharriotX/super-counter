@@ -1,48 +1,27 @@
 import { Settings } from "../setting/Settings"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { CounterDisplay } from "../counterDisplay/CounterDisplay"
 import { Button } from "../button/Button"
 import { selectCounter } from "../../model/counter-selector"
 import { useAppSelector } from "../../common/hooks/useAppSelector"
 import { useAppDispatch } from "../../common/hooks/useAppDispatch"
-import { incrementAC, resetAC, setCounterAC } from "../../model/counter-reducer"
+import { incrementAC, resetAC } from "../../model/counter-reducer"
 import s from "./Counter.module.css"
 
 export const Counter = () => {
     const counter = useAppSelector(selectCounter)
     const dispatch = useAppDispatch()
-    const [start, setStart] = useState<number>(0)
-    const [max, setMax] = useState<number>(5)
     const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false)
 
-    useEffect(() => {
-        getValuesFromLocalStorage()
-    }, [start])
-
-    const getValuesFromLocalStorage = () => {
-        let startNumber = localStorage.getItem("startNumber")
-        let maxNumber = localStorage.getItem("maxNumber")
-
-        if (startNumber && maxNumber) {
-            let newStartNumber = JSON.parse(startNumber);
-            let newMaxNumber = JSON.parse(maxNumber);
-
-            setStart(newStartNumber)
-            setMax(newMaxNumber)
-        }
-        dispatch(setCounterAC({ newNum: start }))
-    }
-
     const add = () => {
-        if (counter === max) {
+        if (counter.startValue === counter.maxValue) {
             return
         }
         dispatch(incrementAC())
     }
 
     const reset = () => {
-        // getValuesFromLocalStorage()
-        dispatch(resetAC({ startNum: start }))
+        dispatch(resetAC())
     }
 
     const openSettings = () => {
@@ -57,13 +36,13 @@ export const Counter = () => {
         <div className={s.counter}>
             {isSettingsOpen
                 ? <div>
-                    <Settings start={start} max={max} setMax={setMax} setStart={setStart} closeSettings={closeSetting}></Settings>
+                    <Settings closeSettings={closeSetting}></Settings>
                 </div>
                 : <div>
-                    <CounterDisplay counter={counter} max={max}></CounterDisplay>
+                    <CounterDisplay ></CounterDisplay>
                     <div className={s.buttonBlock}>
-                        <Button onClick={add} disabled={counter === max ? true : false} >add</Button>
-                        <Button onClick={reset} disabled={counter == start ? true : false}>reset</Button>
+                        <Button onClick={add} disabled={counter.counterValue === counter.maxValue ? true : false} >add</Button>
+                        <Button onClick={reset} disabled={counter.counterValue == counter.startValue ? true : false}>reset</Button>
                         <Button onClick={openSettings}>set</Button>
                     </div>
                 </div>

@@ -1,45 +1,30 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Button } from "../button/Button"
 import { CounterDisplay } from "../counterDisplay/CounterDisplay"
 import { Settings } from "../setting/Settings"
 import s from "./CounterWithSettings.module.css"
+import { useSelector } from "react-redux"
+import { selectCounter } from "../../model/counter-selector"
+import { useAppDispatch } from "../../common/hooks/useAppDispatch"
+import { incrementAC, resetAC } from "../../model/counter-reducer"
+
 export const CounterWithSettings = () => {
-    const [counter, setCounter] = useState<number>(0)
-    const [start, setStart] = useState<number>(0)
-    const [max, setMax] = useState<number>(5)
+    const counter = useSelector(selectCounter)
+    const dispatch = useAppDispatch()
     const [isCounterActive, setCounterIsActive] = useState<boolean>(true)
 
-    useEffect(() => {
-        getValuesFromLocalStorage()
-    }, [start])
-
-    const getValuesFromLocalStorage = () => {
-        let startNumber = localStorage.getItem("startNumber")
-        let maxNumber = localStorage.getItem("maxNumber")
-
-        if (startNumber && maxNumber) {
-            let newStartNumber = JSON.parse(startNumber);
-            let newMaxNumber = JSON.parse(maxNumber);
-
-            setStart(newStartNumber)
-            setMax(newMaxNumber)
-        }
-        setCounter(start)
-    }
-
     const add = () => {
-        if (counter === max) {
+        if (counter.counterValue === counter.maxValue) {
             return
         }
-        setCounter(prev => prev + 1)
+        dispatch(incrementAC())
     }
 
     const reset = () => {
-        getValuesFromLocalStorage()
-        setCounter(start)
+        dispatch(resetAC())
     }
 
-    const handleSetCounterMode = (set: boolean) => {
+    const setCounterModeHandler = (set: boolean) => {
         setCounterIsActive(set)
     }
 
@@ -47,19 +32,15 @@ export const CounterWithSettings = () => {
         <div className={s.counterBox}>
             <div className={s.counterItems}>
                 <Settings
-                    start={start}
-                    max={max}
-                    setMax={setMax}
-                    setStart={setStart}
-                    handleSetCounterMode={handleSetCounterMode}
+                    setCounterModeHandler={setCounterModeHandler}
                     isCounterActive={isCounterActive}
                 ></Settings>
             </div>
             <div className={s.counterItems}>
-                <CounterDisplay counter={counter} max={max}></CounterDisplay>
+                <CounterDisplay></CounterDisplay>
                 <div className={s.counterButtons}>
-                    <Button onClick={add} disabled={counter === max ? true : !isCounterActive ? true : false} >add</Button>
-                    <Button onClick={reset} disabled={counter == start ? true : !isCounterActive ? true : false} >reset</Button>
+                    <Button onClick={add} disabled={counter.counterValue === counter.maxValue ? true : !isCounterActive ? true : false} >add</Button>
+                    <Button onClick={reset} disabled={counter.counterValue == counter.startValue ? true : !isCounterActive ? true : false} >reset</Button>
                 </div>
             </div>
         </div>

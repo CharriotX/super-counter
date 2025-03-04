@@ -9,12 +9,9 @@ export const Header = () => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
-    // Функция для переключения темы
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     };
-
-    console.log(theme)
 
     return (
         <header className={s.header}>
