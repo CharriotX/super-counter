@@ -1,3 +1,8 @@
+.settingsBlock {
+    min-width: 126px;
+    height: 160px;
+}
+
 .inputsBlock {
     display: flex;
     flex-direction: column;
@@ -18,9 +23,11 @@
 
 .errorMessage {
     position: absolute;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     display: flex;
     justify-content: center;
+    text-align: center;
     font-size: 14px;
     color: red
 }

@@ -64,7 +64,7 @@ export const Settings = ({ closeSettings, setCounterModeHandler, isCounterActive
     }
 
     return (
-        <div>
+        <div className={s.settingsBlock}>
             <div className={s.inputsBlock}>
                 <Input
                     type="number"
