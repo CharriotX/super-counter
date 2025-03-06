@@ -1,12 +1,13 @@
+import { useAppDispatch } from "@/common/hooks/useAppDispatch"
 import { useState } from "react"
-import { Button } from "../button/Button"
-import { CounterDisplay } from "../counterDisplay/CounterDisplay"
-import { Settings } from "../setting/Settings"
-import s from "./CounterWithSettings.module.css"
 import { useSelector } from "react-redux"
-import { selectCounter } from "../../model/counter-selector"
-import { useAppDispatch } from "../../common/hooks/useAppDispatch"
-import { incrementAC, resetAC } from "../../model/counter-reducer"
+import s from "@/features/counter/ui/counterWithSettings/CounterWithSettings.module.css"
+import { CounterDisplay } from "@/common/components/counterDisplay/CounterDisplay"
+import { Settings } from "@/common/components/setting/Settings"
+import { selectCounter } from "@/features/counter/model/counter-selector"
+import { incrementAC, resetAC } from "@/features/counter/model/counter-reducer"
+import { Button } from "@/common/components/button/Button"
+
 
 export const CounterWithSettings = () => {
     const counter = useSelector(selectCounter)

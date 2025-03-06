@@ -1,7 +1,8 @@
-import { useAppSelector } from "../../common/hooks/useAppSelector"
-import { selectCounter } from "../../model/counter-selector"
-import { useError } from "../context/errorContext/UseError"
+
+import { useAppSelector } from "@/common/hooks/useAppSelector"
 import s from "./CounterDisplay.module.css"
+import { selectCounter } from "@/features/counter/model/counter-selector"
+import { useError } from "@/common/context/errorContext/UseError"
 
 
 export const CounterDisplay = () => {

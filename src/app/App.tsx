@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Layout } from '../components/layout/Layout'
-import { Counter } from '../components/counter/Counter'
-import { CounterWithSettings } from '../components/counterWithSettings/CounterWithSettings'
-import { Error } from '../pages/Error'
-import "../components/theme/global.css"
-import { Container } from '../components/container/Container'
+import "@/common/theme/global.css"
+import { Layout } from '@/common/components/layout/Layout'
+import { Container } from '@/common/components/container/Container'
+import { Counter } from '@/features/counter/ui/counter/Counter'
+import { CounterWithSettings } from '@/features/counter/ui/counterWithSettings/CounterWithSettings'
+import { Error } from '@/pages/Error'
 
 export type CounterModeType = "primary" | "secondary"
 export type ThemeModeType = "dark" | "light"
@@ -15,7 +15,7 @@ function App() {
     <Layout>
       <Container>
         <Routes>
-          <Route path={"/"} element={<Navigate to={"/counter"} />}></Route>
+          <Route path={"/"} element={<Navigate to={"/counterWithSettings"} />}></Route>
           <Route path={"/counter"} element={<Counter />}></Route>
           <Route path={"/counterWithSettings"} element={<CounterWithSettings />}></Route>
           <Route path={"/error"} element={<Error />}></Route>

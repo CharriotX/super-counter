@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
-import s from "./Header.module.css"
+import { useEffect } from "react";
+import s from "@/common/components/header/Header.module.css"
 import { NavLink } from "react-router-dom"
+import { useAppSelector } from "@/common/hooks/useAppSelector";
+import { selectThemeMode } from "@/app/app-selectors";
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { toggleThemeAC } from "@/app/app-reducer";
 
 export const Header = () => {
-    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+    const theme = useAppSelector(selectThemeMode);
+    console.log(theme)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
     const toggleTheme = () => {
-        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+        dispatch(toggleThemeAC({ themeMode: theme === 'light' ? 'dark' : 'light' }));
     };
 
     return (
@@ -34,7 +40,6 @@ export const Header = () => {
                         {theme === 'light' ? '🌙' : '☀️'}
                     </button>
                 </div>
-
             </nav>
         </header>
     )

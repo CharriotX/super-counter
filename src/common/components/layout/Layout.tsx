@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
-import { Header } from "../header/Header"
-import ErrorProvider from "../context/errorContext/ErrorProvider"
-import s from "./Layout.module.css"
+import ErrorProvider from "@/common/context/errorContext/ErrorProvider"
+import { Header } from "@/common/components/header/Header"
+import s from "@/common/components/layout/Layout.module.css"
 
 type Props = {
     children: ReactNode

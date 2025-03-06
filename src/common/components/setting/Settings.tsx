@@ -1,12 +1,12 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-import { Button } from '../button/Button'
-import { Input } from '../input/Input'
-import { useError } from '../context/errorContext/UseError'
-import { useAppDispatch } from '../../common/hooks/useAppDispatch'
-import { setCounterAC, setCounterSettingsAC } from '../../model/counter-reducer'
-import s from "./Settings.module.css"
-import { useAppSelector } from '../../common/hooks/useAppSelector'
-import { selectCounter } from '../../model/counter-selector'
+import { useAppDispatch } from "@/common/hooks/useAppDispatch"
+import { useAppSelector } from "@/common/hooks/useAppSelector"
+import { ChangeEvent, useEffect, useState } from "react"
+import { Input } from "../input/Input"
+import { Button } from "../button/Button"
+import s from "@/common/components/setting/Settings.module.css"
+import { useError } from "@/common/context/errorContext/UseError"
+import { selectCounter } from "@/features/counter/model/counter-selector"
+import { setCounterAC, setCounterSettingsAC } from "@/features/counter/model/counter-reducer"
 
 
 type Props = {

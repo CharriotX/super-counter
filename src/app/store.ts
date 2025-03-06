@@ -1,17 +1,19 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { counterReducer } from "../model/counter-reducer";
 import { loadState, saveState } from "./localStorageUtils";
+import { counterReducer } from "@/features/counter/model/counter-reducer";
+import { appReducer } from "./app-reducer";
 
 const persistedState = loadState();
 
 
 const rootReducer = combineReducers({
     counter: counterReducer,
+    app: appReducer
 })
 
 export const store = configureStore({
     reducer: rootReducer,
-    preloadedState: persistedState?.counter
+    preloadedState: persistedState
 })
 
 store.subscribe(() => {
